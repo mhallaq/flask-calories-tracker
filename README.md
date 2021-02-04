@@ -15,4 +15,6 @@ Project is created with:
 * CSS
 
 ## Application design
-The system need to store the consumed calories in the database.
+The system need to store the consumed calories in the database.The following ER diagram shows what data will be persist in the database and the relationships between tables.
+
+![ER diagram](https://i.imgur.com/MnmM8w7.jpg)
