@@ -1,4 +1,4 @@
-# flask-calories-tracker
+# Calories tracker web app
 ## Table of contents
 * [General info](#general-info)
 * [Technologies](#technologies)
