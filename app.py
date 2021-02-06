@@ -24,8 +24,6 @@ class Food_date(db.Model):
     food_id=db.Column(db.Integer, primary_key=True)
     log_date_id=db.Column(db.Integer, primary_key=True)
 
-
-
 @app.route('/',methods=['GET','POST'])
 def index():
     if request.method=='POST':
@@ -48,19 +46,20 @@ def index():
     # db.session.add(test_food_date)
     # db.session.commit()
     
-    # all_dates=Log_date.query.order_by(Log_date.entry_date.desc()).all()
-    all_dates=db.session.query(db.func.sum(Food.protein),db.func.sum(Food.carb),db.func.sum(Food.fat),\
-        db.func.sum(Food.calories),Log_date.entry_date).select_from(Food).fulljoin(Food_date,\
-            Food.id==Food_date.food_id).outerjoin(Log_date,Log_date.id==Food_date.log_date_id).\
-                group_by(Log_date.id).order_by(Log_date.entry_date.desc()).all()
+    all_dates=Log_date.query.order_by(Log_date.entry_date.desc()).all()
+    # all_dates=db.session.query(db.func.sum(Food.protein),db.func.sum(Food.carb),db.func.sum(Food.fat),\
+    #     db.func.sum(Food.calories),Log_date.entry_date).select_from(Food).fulljoin(Food_date,\
+    #         Food.id==Food_date.food_id).outerjoin(Log_date,Log_date.id==Food_date.log_date_id).\
+    #             group_by(Log_date.id).order_by(Log_date.entry_date.desc()).all()
 
     date_results=[]
     for i in all_dates:
         single_date={}
-        single_date['protein']=i[0]
+        # single_date['protein']=i[0]
         # single_date['carb']=i[1]
         # single_date['fat']=i[2]
         # single_date['calories']=i[3]
+        single_date['day_id']=i.id
         single_date['formatted_date']=datetime.strftime(i.entry_date,'%B %d %Y')
         single_date['entry_date']=i.entry_date
         date_results.append(single_date)
@@ -122,6 +121,50 @@ def food():
     #     print (i.name)
 
     return render_template('add_food.html',foods=all_foods)
+
+@app.route('/edit_food/<int:id>',methods=['GET','POST'])
+
+def edit(id):
+    food = Food.query.filter_by(id=id).first()
+    print(food.name,' ',food.protein)
+    # return render_template('edit_food.html',food=food) 
+
+   
+    if request.method=='POST':
+        print('update food')
+        food.name=request.form['name']
+        food.protein=int(request.form['protein'])
+        food.carb=int(request.form['carb'])
+        food.fat=int(request.form['fat'])
+        food.calories=calories=(food.protein+food.carb)*4+food.fat*9
+        print(food.name,food.protein,food.carb,food.fat)
+        db.session.commit()
+        all_foods = Food.query.all()
+        return render_template('add_food.html',foods=all_foods)
+
+    return render_template('edit_food.html',food=food) 
+
+
+# Delete a day
+@app.route('/delete_day/<int:id>',methods=['GET','POST'])
+
+def delete(id):
+    day = Log_date.query.filter_by(id=id).first()
+    print(day.id,' ',day.entry_date)
+
+    day_food = Food_date.query.filter_by(log_date_id=id).all()
+    # print(day_food.log_date_id,' ',day_food.food_id)
+
+    if request.method=='GET':
+        print('delete day',id)
+        Food_date.query.filter_by(log_date_id=id).delete()
+        db.session.delete(day)
+        db.session.commit()
+
+    
+    return render_template('home.html') 
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
