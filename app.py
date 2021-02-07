@@ -35,7 +35,6 @@ def index():
         new_log_date=Log_date(entry_date=database_date)
         db.session.add(new_log_date)
         db.session.commit()
-        # return database_date
 
     # db.drop_all()
     db.create_all()
