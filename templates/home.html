@@ -33,12 +33,8 @@
             </div>
             <div class="panel-body">
               <ul class="nav nav-pills" role="tablist">
-                <!-- <li><a>Protein: <span class="badge">100</span></a></li>
-                <li><a>Carbohydates: <span class="badge">200</span></a></li>
-                <li><a>Fat: <span class="badge">50</span></a></li>
-                <li><a>Calories: <span class="badge">1650</span></a></li> -->
-                <li><a href="{{url_for('view',date=row.entry_date )}}" type="button" class="btn btn-link">View Detail</a></li>
-                <li><a href="{{url_for('delete',id=row.day_id )}}" type="button" class="btn btn-link">Delete</a></li>
+                <li><a href="{{url_for('view',date=row.entry_date )}}" type="button" class="btn btn-success">View Detail</a></li>
+                <li><a href="{{url_for('delete',id=row.day_id )}}" type="button" class="btn btn-danger">Delete</a></li>
 
               </ul>
             </div>

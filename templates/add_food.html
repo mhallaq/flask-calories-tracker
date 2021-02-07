@@ -11,8 +11,7 @@
         </div>
       </div>
     </nav>
-
-    <div class="container theme-showcase col-sm-6 col-sm-offset-3" role="main">
+    <div class="container theme-showcase col-lg-8 col-sm-offset-2" role="main">
 
       <div class="row">
         <div>
@@ -54,8 +53,8 @@
                 <li><a>Carbohydrates: <span class="badge">{{food.carb}}</span></a></li>
                 <li><a>Fat: <span class="badge">{{food.fat}}</span></a></li>
                 <li><a>Calories: <span class="badge">{{food.calories}}</span></a></li>
-                <a href="{{url_for('edit',id=food.id)}}"> Edit </a>
-                <a href='#'>Delete</a>
+                <!-- <a href="{{url_for('edit',id=food.id)}}"> Edit </a> -->
+                <li><a href="{{url_for('edit',id=food.id)}}" type="button" class="btn btn-warning">Update</a></li>
               </ul>            
               <br/> 
               {% endfor %}
