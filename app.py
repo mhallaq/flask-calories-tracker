@@ -5,6 +5,8 @@ from datetime import datetime
 app=Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://qatraining:Qatraining@1975@localhost/flask_project1'
+
+# app.config['SQLALCHEMY_DATABASE_URI']="sqlite:///"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
 db=SQLAlchemy(app)
 
@@ -36,7 +38,7 @@ def index():
         # return database_date
 
     # db.drop_all()
-    # db.create_all()
+    db.create_all()
     # testLog_date = Log_date(entry_date='2021/02/05') # Extra: this section populates the table with an example entry
     # db.session.add(testLog_date)
     # test_food=Food(name='burger',protein=3,carb=2,fat=3,calories=120)
@@ -126,18 +128,18 @@ def food():
 
 def edit(id):
     food = Food.query.filter_by(id=id).first()
-    print(food.name,' ',food.protein)
+    # print(food.name,' ',food.protein)
     # return render_template('edit_food.html',food=food) 
 
    
     if request.method=='POST':
-        print('update food')
+        # print('update food')
         food.name=request.form['name']
         food.protein=int(request.form['protein'])
         food.carb=int(request.form['carb'])
         food.fat=int(request.form['fat'])
         food.calories=calories=(food.protein+food.carb)*4+food.fat*9
-        print(food.name,food.protein,food.carb,food.fat)
+        # print(food.name,food.protein,food.carb,food.fat)
         db.session.commit()
         all_foods = Food.query.all()
         return render_template('add_food.html',foods=all_foods)
@@ -150,13 +152,13 @@ def edit(id):
 
 def delete(id):
     day = Log_date.query.filter_by(id=id).first()
-    print(day.id,' ',day.entry_date)
+    # print(day.id,' ',day.entry_date)
 
     day_food = Food_date.query.filter_by(log_date_id=id).all()
     # print(day_food.log_date_id,' ',day_food.food_id)
 
     if request.method=='GET':
-        print('delete day',id)
+        # print('delete day',id)
         Food_date.query.filter_by(log_date_id=id).delete()
         db.session.delete(day)
         db.session.commit()
