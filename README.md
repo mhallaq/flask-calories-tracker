@@ -128,6 +128,8 @@ Note: These steps is relevant to linux environments
 
 ### Testing the application
 
+To get the test running , you need to create a test db in mysql with the same schema as in the production environment.Then update the SQL_URI in the test script.
+
 ```
 
 pytest --cov=app 
