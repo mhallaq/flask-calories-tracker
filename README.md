@@ -181,13 +181,6 @@ A list of commonly used resources that I find helpful are listed in the acknowle
 ![Add food intake in a day ](https://i.imgur.com/sKgjojH.png)
 
 
-<!-- ROADMAP -->
-## Roadmap
-
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a list of proposed features (and known issues).
-
-
-
 <!-- CONTRIBUTING -->
 ## Contributing
 
