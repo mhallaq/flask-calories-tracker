@@ -7,4 +7,4 @@ pytest
 pytest-cov
 flask-testing
 pymysql
-cryptography
+#cryptography
